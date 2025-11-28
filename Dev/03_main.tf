@@ -16,6 +16,7 @@ module "network" {
   az2                    = var.az2
   public_subnet_az1_cidr = var.public_subnet_az1_cidr
   public_subnet_az2_cidr = var.public_subnet_az2_cidr
+  destination_cidr_block = var.destination_cidr_block
 }
 
 module "eks_cluster" {
@@ -39,6 +40,7 @@ module "eks_nodegroup" {
   node_disk_size          = var.node_disk_size
   subnet_ids              = module.network.public_subnet_ids
   nodegroup_iam_role      = var.nodegroup_iam_role
+
 }
 
 module "oidc" {
