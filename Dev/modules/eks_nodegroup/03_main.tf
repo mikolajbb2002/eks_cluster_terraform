@@ -2,7 +2,7 @@ resource "aws_eks_node_group" "example" {
   cluster_name    = var.cluster_name
   node_group_name = var.aws_eks_node_group
   node_role_arn   = aws_iam_role.example.arn
-  subnet_ids      = aws_subnet.example[*].id
+  subnet_ids      = var.subnet_ids
 
   scaling_config {
     desired_size = var.node_group_desired_size
@@ -23,11 +23,4 @@ resource "aws_eks_node_group" "example" {
     aws_iam_role_policy_attachment.example-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly,
   ]
-}
-
-resource "aws_subnet" "example" {
-  count = var.number_of_subnets
-  availability_zone = var.availability_zones[count.index]
-  cidr_block        = var.subnet_cidrs[count.index]
-  vpc_id            = var.vpc_id
 }
