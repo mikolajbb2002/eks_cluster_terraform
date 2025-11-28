@@ -38,24 +38,9 @@ variable "node_disk_size" {
   type        = number
 }
 
-variable "number_of_subnets" {
-  description = "How many subnets to create for the node group."
-  type        = number
-}
-
-variable "availability_zones" {
-  description = "List of availability zones used for subnets."
+variable "subnet_ids" {
+  description = "Subnet IDs where the node group will run."
   type        = list(string)
-}
-
-variable "subnet_cidrs" {
-  description = "List of CIDR blocks matching each subnet."
-  type        = list(string)
-}
-
-variable "vpc_id" {
-  description = "VPC identifier to attach the subnets to."
-  type        = string
 }
 
 variable "nodegroup_iam_role" {

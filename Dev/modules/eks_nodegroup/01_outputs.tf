@@ -14,6 +14,6 @@ output "node_role_arn" {
 }
 
 output "subnet_ids" {
-  description = "Identifiers of the subnets created for the node group."
-  value       = aws_subnet.example[*].id
+  description = "Identifiers of the subnets used by the node group."
+  value       = var.subnet_ids
 }
