@@ -132,3 +132,9 @@ variable "oidc_subjects" {
   description = "List of OIDC subjects allowed to assume roles."
   type        = list(string)
 }
+
+variable "destination_cidr_block" {
+  description = "CIDR block for internet-bound traffic."
+  type        = string
+  
+}

@@ -11,6 +11,11 @@ output "public_subnet_ids" {
   ]
 }
 
+variable "destination_cidr_block" {
+  description = "CIDR block for internet-bound traffic."
+  type        = string 
+}
+
 output "internet_gateway_id" {
   description = "Identifier of the internet gateway attached to the VPC."
   value       = aws_internet_gateway.main.id
