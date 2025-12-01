@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  workflow_dispatch: 
     inputs:
         action:
           description: 'Select Apply to apply the changes'
@@ -61,3 +61,28 @@ jobs:
           run: terraform -chdir="${{env.TF_workdir}}" init -input=false 
         - name: terraform plan
           run: terraform -chdir="${{env.TF_workdir}}" plan -out=tfplan -input=false -lock=false
+  apply:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    needs: plan
+    if: github.event.inputs.action == 'apply' && (github.event_name != 'pull_request')
+    env:
+        APPLY_ROLE_ARN: ${{ secrets.APPLY_ROLE_ARN }}
+        TF_VAR_aws_profile: ""
+        TF_CLI_ARGS_apply: -var="aws_profile="
+    steps:
+        - uses: actions/checkout@v4
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v3
+          with:
+            terraform_version: ${{env.TF_VERSION }}
+        - name: Configure AWS credentials
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            role-to-assume: ${{ secrets.APPLY_ROLE_ARN }}
+            role-session-name: GitHubActions-TerraformApply
+            aws-region: ${{ env.TF_region }}
+        - name: terraform init
+          run: terraform -chdir="${{env.TF_workdir}}" init -input=false 
+        - name: terraform apply
+          run: terraform -chdir="${{env.TF_workdir}}" apply -input=false tfplan
