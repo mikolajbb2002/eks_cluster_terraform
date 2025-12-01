@@ -102,14 +102,6 @@ statement {
     resources = ["*"]
   }
 
-    statement {
-        effect = "Deny"
-        actions = [
-        "dynamodb:Delete*",
-        ]
-        resources = ["*"]
-    }
-
 statement {
     effect = "Allow"
     actions = [
