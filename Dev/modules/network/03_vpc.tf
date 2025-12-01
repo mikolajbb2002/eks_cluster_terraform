@@ -50,7 +50,7 @@ resource "aws_route_table" "public" {
 # Public RT: routes 0.0.0.0/0 → IGW
 resource "aws_route" "public_internet" {
   route_table_id         = aws_route_table.public.id
-  destination_cidr_block = "0.0.0.0/0"
+  destination_cidr_block = var.destination_cidr_block
   gateway_id             = aws_internet_gateway.main.id
 }
 
