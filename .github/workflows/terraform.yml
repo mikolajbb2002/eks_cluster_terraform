@@ -56,6 +56,6 @@ jobs:
             role-session-name: GitHubActions-TerraformPlan
             aws-region: ${{ env.TF_region }}
         - name: terraform init 
-          run: terraform -chdir="${{env.TF_workdir}}" init -input=false
+          run: terraform -chdir="${{env.TF_workdir}}" init -input=false 
         - name: terraform plan
-          run: terraform -chdir="${{env.TF_workdir}}" plan -out=tfplan -input=false
+          run: terraform -chdir="${{env.TF_workdir}}" plan -out=tfplan -input=false -lock=false
