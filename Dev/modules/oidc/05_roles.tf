@@ -4,13 +4,13 @@ data "aws_iam_policy_document" "assume_role" {
     effect  = "Allow"
 
     condition {
-      test     = "StringEquals"
+      test     = "StringLike"
       values   = var.oidc_subjects
       variable = "${local.iam_oidc_condition_prefix}sub"
     }
 
     condition {
-      test     = "StringEquals"
+      test     = "StringLike"
       values   = [var.oidc_audience]
       variable = "${local.iam_oidc_condition_prefix}aud"
     }
