@@ -20,6 +20,8 @@ env:
   TF_VERSION: '1.9.5'
   TF_WORKDIR: Dev
   TF_region: 'eu-central-1'
+  EKS_CLUSTER_NAME: eks-cluster
+  MANIFEST_PATH: 'simple-nginx.yaml'
 jobs:
   validate: 
     name: fmt init validate
@@ -97,3 +99,11 @@ jobs:
             path: ${{ env.TF_WORKDIR }} 
         - name: terraform apply
           run: terraform -chdir="${{env.TF_WORKDIR}}" apply -auto-approve tfplan
+        - name: Install kubectl
+          uses: azure/setup-kubectl@v4
+          with:
+            version: v1.30.3
+        - name: Configure kubeconfig for EKS
+          run: aws eks update-kubeconfig --region ${{ env.TF_region }} --name ${{ env.EKS_CLUSTER_NAME }}
+        - name: Deploy workload to EKS
+          run: kubectl apply -f ${{ env.TF_WORKDIR }}/${{env.MANIFEST_PATH }}
