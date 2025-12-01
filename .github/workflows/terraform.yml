@@ -52,13 +52,6 @@ jobs:
           uses: hashicorp/setup-terraform@v3
           with:
             terraform_version: ${{env.TF_VERSION }}
-        - name: Check plan role arn
-          run: |
-           if [ -z "${PLAN_ROLE_ARN}" ]; then
-             echo "Repository variable or secret 'AWS_TERRAFORM_PLAN_ROLE_ARN' is required." >&2
-             exit 1
-           fi
-
         - name: Debug OIDC token
           run: |
             python - <<'PY'
