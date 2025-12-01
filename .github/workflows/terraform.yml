@@ -16,6 +16,16 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  TF_VERSION: ${{ vars.TF_VERSION  }}
+  TF_WORKDIR: ${{ vars.TF_WORKDIR  }}
+  TF_region: ${{ vars.TF_REGION  }}
+  EKS_CLUSTER_NAME: ${{ vars.EKS_CLUSTER_NAME  }}
+  MANIFEST_PATH: ${{ vars.MANIFEST_PATH }}
+concurrency:
+  group: terraform-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   validate: 
     name: fmt init validate
