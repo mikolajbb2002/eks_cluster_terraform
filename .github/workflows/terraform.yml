@@ -44,7 +44,6 @@ jobs:
     env:
         PLAN_ROLE_ARN: ${{ secrets.PLAN_ROLE_ARN }}
         TF_VAR_aws_profile: ""
-        TF_CLI_ARGS_plan: -var="aws_profile="
     steps:
         - uses: actions/checkout@v4
         - name: Setup Terraform
@@ -77,7 +76,6 @@ jobs:
     env:
         APPLY_ROLE_ARN: ${{ secrets.APPLY_ROLE_ARN }}
         TF_VAR_aws_profile: ""
-        TF_CLI_ARGS_apply: -var="aws_profile="
     steps:
         - uses: actions/checkout@v4
         - name: Setup Terraform
