@@ -15,6 +15,10 @@ on:
           type: choice
           options:
             - apply
+permissions:
+  id-token: write
+  contents: read
+  
 env:
   TF_VERSION: '1.9.5'
   TF_workdir: ./Dev
