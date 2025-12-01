@@ -6,6 +6,7 @@ variable "region" {
 variable "aws_profile" {
   description = "Shared config/credentials profile name for local runs; leave empty when using OIDC"
   type        = string
+  default     = ""
 }
 
 variable "project_name" {
