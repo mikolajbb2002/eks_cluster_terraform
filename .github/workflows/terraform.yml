@@ -43,6 +43,7 @@ jobs:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
     env:
         PLAN_ROLE_ARN: ${{ secrets.PLAN_ROLE_ARN }}
+        TF_VAR_aws_profile: ""
     steps:
         - uses: actions/checkout@v4
         - name: Setup Terraform
