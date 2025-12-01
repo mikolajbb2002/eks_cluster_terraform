@@ -1,5 +1,5 @@
 region      = "eu-central-1"
-aws_profile = "terraform-sso"
+aws_profile   = "" # Use empty when using OIDC - terraform-sso
 
 project_name = "nginx-app"
 environment  = "dev"

@@ -1,4 +1,4 @@
-aws_profile = "terraform-sso"
+aws_profile   = "" # Use empty when using OIDC - terraform-sso
 enable_kms   = true
 region     = "eu-central-1"
 bucket_name ="tfstate-for-ecs-app"
