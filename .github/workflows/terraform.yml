@@ -1,0 +1,33 @@
+name: Terrafom CI/CD for EKS Cluster
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+        action:
+          description: 'Select Apply to apply the changes'
+          required: true
+          type: choice
+          options:
+            - apply
+jobs:
+  validate: 
+    name: fmt init validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{env.TF_VERSION }}
+      - name: Terraform fmt
+        run: terraform fmt -check
+      - name: Terraform init
+        run: terraform -chdir="${{TF_workdir}}" init
+      - name: Terraform validate
+        run: terraform -chdir="${{TF_workdir}}" validate
